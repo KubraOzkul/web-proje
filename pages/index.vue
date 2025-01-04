@@ -1,24 +1,16 @@
 <template>
-     <div class="container">
-      <h1>Component Viewer</h1>
-      <div class="button-container">
-        <button v-for="n in 10" :key="n" @click="navigateToComponent(n)">
-          Go to Component {{ n }}
-        </button>
-      </div>
-    </div>
    
-    <HeaderComponent></HeaderComponent>
+    <ComponentOne/>
+    <ComponentEight/>
+    <ComponentSeven/>
+    <ComponentNine/>
+    <ComponentThree/>
+    <ComponentNine/>
+    <ComponentTen/>
+    <ComponentNine/>
+    <ComponentTwo/>
+    <ComponentSix/>
 
-
-    
-   
-    <CourselComponent></CourselComponent>
-    
-    <CompComponents></CompComponents>
-
-
-    <FooterComponents></FooterComponents>
 </template>
 
 <style>
@@ -30,6 +22,14 @@
   
   <script setup>
   import { useRouter } from 'vue-router';
+import ComponentEight from '~/components/ComponentEight.vue';
+import ComponentNine from '~/components/ComponentNine.vue';
+import ComponentOne from '~/components/ComponentOne.vue';
+import ComponentSeven from '~/components/ComponentSeven.vue';
+import ComponentSix from '~/components/ComponentSix.vue';
+import ComponentTen from '~/components/ComponentTen.vue';
+import ComponentThree from '~/components/ComponentThree.vue';
+import ComponentTwo from '~/components/ComponentTwo.vue';
   
   const router = useRouter();
   

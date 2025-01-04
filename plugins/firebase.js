@@ -21,4 +21,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Nuxt app'e firebaseApp ve db'yi enjekte et
   nuxtApp.provide('firebase', firebaseApp)
   nuxtApp.provide('db', db)
+  
 })

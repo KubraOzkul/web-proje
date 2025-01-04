@@ -11,17 +11,25 @@
       <div class="popup-content">
         <div class="product-wrapper">
           <img
-            src="https://www.kitapsepeti.com/siyam-545196-37-K.jpg"
+            :src="selectedProduct?.img || defaultImage"
             alt="Siyam Kitap Resmi"
             class="product-image"
           />
           <div class="product-info-wrapper">
             <div class="product-info">
-              <p class="product-brand fw-bold">Epsilon Yayınevi</p>
-              <p class="product-title">Siyam IV Mare</p>
+              <p class="product-brand fw-bold">
+                {{ selectedProduct?.publisher || 'Epsilon Yayınevi' }}
+              </p>
+              <p class="product-title">
+                {{ selectedProduct?.name || 'Siyam IV Mare' }}
+              </p>
               <div class="price-wrapper">
-                <del class="text-gray text-delete price-old">305,00 TL</del>
-                <div class="current-price fw-black text-primary">252,80 TL</div>
+                <del class="text-gray text-delete price-old"
+                  >305,00 TL</del
+                >
+                <div class="current-price fw-black text-primary">
+                  {{ selectedProduct?.price || '252,80 TL' }}
+                </div>
               </div>
               <div class="count-info text-black">1 Adet</div>
             </div>
@@ -31,12 +39,42 @@
 
       <!-- Düğmeler -->
       <div class="popup-buttons">
-        <button @click="goToCart" class="btn btn-primary">SEPETE GİT</button>
-        <button @click="proceedToCheckout" class="btn btn-secondary">SATIN AL</button>
+        <button @click="" class="btn btn-primary">SEPETE GİT</button>
+        <button @click="" class="btn btn-secondary">SATIN AL</button>
+        <!-- İsterseniz kapat butonu da ekleyebilirsiniz -->
+        <button @click="$emit('close-modal')" class="btn btn-secondary">KAPAT</button>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'ProductAddedModal',
+  props: {
+    selectedProduct: {
+      type: Object,
+      default: null,
+    },
+  },
+  data() {
+    return {
+      // Bir default resim ayarlayabilirsiniz. Örneğin:
+      defaultImage: 'https://www.kitapsepeti.com/siyam-545196-37-K.jpg',
+    };
+  },
+  methods: {
+    goToCart() {
+      // Sepet sayfasına yönlendirme
+      this.$router.push('/cart');
+    },
+    proceedToCheckout() {
+      // Satın alma sayfasına yönlendirme
+      this.$router.push('/checkout');
+    },
+  },
+};
+</script>
 
 <style scoped>
 /* Genel Popup Stil */
@@ -57,13 +95,13 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  pointer-events: auto
+  pointer-events: auto;
 }
 
 /* Başlık */
 .popup-header {
   display: flex;
-  justify-content: flex-start; /* Elemanları sola hizala */
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 16px;
 }
@@ -88,9 +126,9 @@
 .product-wrapper {
   display: flex;
   align-items: center;
-  gap: 16px; /* Resim ve yazı arasındaki mesafeyi ayarladım */
-  padding: 8px; /* İç boşlukları biraz daha arttırdım */
-  border: 1px solid #ddd; /* Kitap resmi ve yazılar için çerçeve */
+  gap: 16px;
+  padding: 8px;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
@@ -105,8 +143,8 @@
 .product-info-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Yazıları sola hizaladım */
-  gap: 6px; /* Yazılar arasındaki mesafe */
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .product-info {
@@ -126,8 +164,8 @@
 /* Fiyat düzeni */
 .price-wrapper {
   display: flex;
-  flex-direction: column; /* Fiyatları alt alta yerleştiriyorum */
-  gap: 4px; /* Fiyatlar arasındaki mesafe */
+  flex-direction: column;
+  gap: 4px;
   color: #56008E;
 }
 
@@ -140,13 +178,13 @@
 .current-price {
   font-size: 16px;
   font-weight: bold;
-  color: #56008E; /* Mor renk */
+  color: #56008E;
 }
 
 /* Adet bilgisi */
 .count-info {
   font-size: 14px;
-  color: #0000;
+  color: #000;
 }
 
 /* Düğmeler */
@@ -157,13 +195,15 @@
 }
 
 .btn {
-  width: 48%;
+  width: 31%;
   padding: 8px;
   font-size: 14px;
   font-weight: bold;
   text-align: center;
   border-radius: 4px;
   transition: background-color 0.3s;
+  cursor: pointer;
+  border: none;
 }
 
 .btn-primary {
@@ -184,33 +224,3 @@
   background-color: #111;
 }
 </style>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'ProductAddedModal',
-  methods: {
-    goToCart() {
-      // Sepet sayfasına yönlendirme
-      this.$router.push('/cart');
-    },
-    proceedToCheckout() {
-      // Satın alma sayfasına yönlendirme
-      this.$router.push('/checkout');
-    },
-    goBack() {
-    this.$router.go(-1); // Kullanıcıyı önceki sayfaya yönlendirme
-  },
-  },
-});
-</script>
-
-
-
-
-
-
-
-
-  

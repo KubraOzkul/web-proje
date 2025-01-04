@@ -10,7 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "firebase": "^11.1.0",
     "nuxt": "^3.13.2",
+    "swiper": "^11.1.15",
     "vue": "latest",
     "vue-router": "latest"
   }

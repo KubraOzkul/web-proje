@@ -7,12 +7,12 @@
     "module": true,
     "resourceType": "script"
   },
-  "C:/Users/90551/Desktop/github/proje/node_modules/nuxt/dist/app/entry.js": {
+  "C:/Users/90551/Desktop/yeni2/node_modules/nuxt/dist/app/entry.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
     "isEntry": true,
-    "file": "C:/Users/90551/Desktop/github/proje/node_modules/nuxt/dist/app/entry.js"
+    "file": "C:/Users/90551/Desktop/yeni2/node_modules/nuxt/dist/app/entry.js"
   }
 }

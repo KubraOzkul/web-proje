@@ -1,13 +1,13 @@
 <template>
   <div>
     <h2>ÇOK SATANLAR</h2>
-    
+
     <!-- Kaydırılabilir Alan -->
     <div class="slider-container">
       <!-- Kaydırma Butonları -->
       <div class="slider-buttons left" @click="scrollLeft"> < </div>
       <div class="slider-buttons right" @click="scrollRight"> > </div>
-      
+
       <!-- Kartlar Dinamik Olarak Yüklenecek -->
       <div class="cards-container" ref="cardsContainer">
         <div
@@ -32,12 +32,12 @@
             <p class="card-text">
               {{ card.publisher }}<br>{{ card.author }}
             </p>
-            
+
             <!-- Fiyat Butonu -->
             <button
               class="btn btn-primary"
               :data-price="card.price"
-              @click="openModal(card)"
+              @click="addToCart(card)"
             >
               {{ card.price }}
             </button>
@@ -57,7 +57,6 @@
     </div>
 
     <!-- Modal Component (Göster/Gizle) -->
-    <!-- showModal ve selectedProduct tanımladığımız için sorun ortadan kalkacak -->
     <ComponentFour
       v-if="showModal"
       :selected-product="selectedProduct"
@@ -65,82 +64,63 @@
     />
   </div>
 </template>
+
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useNuxtApp } from '#app'
-import { collection, query, getDocs } from 'firebase/firestore'
+import { ref, computed, onMounted } from 'vue';
+import { useCartStore } from '~/stores/cart';
 
 // Modal kontrol vb. değişkenler
-const showModal = ref(false)
-const selectedProduct = ref(null)
-const currentIndex = ref(0)
-const cards = ref([])
+const showModal = ref(false);
+const selectedProduct = ref(null);
+const currentIndex = ref(0);
+
+// Pinia store'u kullanarak verileri alıyoruz
+const cokSatanlarStore = useCokSatanlarStore();
+const cards = computed(() => cokSatanlarStore.cards);
 
 // Modal fonksiyonları
 const openModal = (card) => {
-  selectedProduct.value = card
-  showModal.value = true
-}
+  selectedProduct.value = card;
+  showModal.value = true;
+};
 const closeModal = () => {
-  showModal.value = false
-  selectedProduct.value = null
-}
+  showModal.value = false;
+  selectedProduct.value = null;
+};
 
-// NuxtApp içinden Firestore örneğimizi alıyoruz
-const { $db } = useNuxtApp()
-
-// Firestore'dan verileri çekme fonksiyonu
-const getItems = async () => {
-  // "cokSatanlar" koleksiyonundan verileri alalım
-  const q = query(collection($db, "cokSatanlar"))
-  const querySnapshot = await getDocs(q)
-
-  // Kart listesini temizle
-  cards.value = []
-
-  // Her belge üzerinde dön
-  querySnapshot.forEach((docSnap) => {
-    const data = docSnap.data()
-    const { eskiFiyat, fiyat, isim, link, yayinevi, yazar } = data
-    // Aşağıdaki yapıyla template'te card.name → isim gibi eşleştirme yapabilirsiniz
-    cards.value.push({
-      name: isim,
-      publisher: yayinevi,
-      author: yazar,
-      price: fiyat,
-      img: link,
-      eskiFiyat // isterseniz kullanabilirsiniz
-    })
-  })
-}
+// Sepete ekleme fonksiyonu
+const addToCart = async (card) => {
+  await cokSatanlarStore.addToCart(card);
+  openModal(card); // Modalı açarak kullanıcıya bilgi ver
+};
 
 // Bileşen yüklendiğinde verileri çek
 onMounted(() => {
-  getItems()
-})
+  cokSatanlarStore.fetchCokSatanlar();
+});
 
 // Slider’daki görüntüleme
 const visibleCards = computed(() => {
-  return cards.value.slice(currentIndex.value, currentIndex.value + 6)
-})
+  return cards.value.slice(currentIndex.value, currentIndex.value + 6);
+});
 const totalPages = computed(() => {
-  return Math.ceil(cards.value.length / 6)
-})
+  return Math.ceil(cards.value.length / 6);
+});
 
 // Kaydırma fonksiyonları
 const scrollLeft = () => {
   if (currentIndex.value > 0) {
-    currentIndex.value--
+    currentIndex.value--;
   }
-}
+};
 const scrollRight = () => {
   if (currentIndex.value + 1 < cards.value.length) {
-    currentIndex.value++
+    currentIndex.value++;
   }
-}
+};
 const goToPage = (index) => {
-  currentIndex.value = index * 6
-}
+  currentIndex.value = index * 6;
+};
 </script>
 
 <style scoped>

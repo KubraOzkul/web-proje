@@ -79,8 +79,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useCartStore } from '~/stores/cart' // <-- Yolunuzu burada düzeltin
+import { useRouter } from 'vue-router' //diğer sayfaya rotasyon için
+import { useCartStore } from '~/stores/cart' 
 
 const message = ref('')
 

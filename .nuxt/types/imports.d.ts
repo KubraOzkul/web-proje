@@ -102,6 +102,7 @@ declare global {
   const useAppConfig: typeof import('../../node_modules/nuxt/dist/app/config')['useAppConfig']
   const useAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']
   const useAttrs: typeof import('../../node_modules/vue')['useAttrs']
+  const useAuthStore: typeof import('../../stores/auth')['useAuthStore']
   const useBody1Store: typeof import('../../stores/body1Store')['useBody1Store']
   const useCartStore: typeof import('../../stores/cart')['useCartStore']
   const useCokSatanlarStore: typeof import('../../stores/cokSatanlarStore')['useCokSatanlarStore']
@@ -291,6 +292,7 @@ declare module 'vue' {
     readonly useAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/config')['useAppConfig']>
     readonly useAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']>
     readonly useAttrs: UnwrapRef<typeof import('../../node_modules/vue')['useAttrs']>
+    readonly useAuthStore: UnwrapRef<typeof import('../../stores/auth')['useAuthStore']>
     readonly useBody1Store: UnwrapRef<typeof import('../../stores/body1Store')['useBody1Store']>
     readonly useCartStore: UnwrapRef<typeof import('../../stores/cart')['useCartStore']>
     readonly useCokSatanlarStore: UnwrapRef<typeof import('../../stores/cokSatanlarStore')['useCokSatanlarStore']>

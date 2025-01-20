@@ -7,4 +7,5 @@ import SepetComponent from '~/components/sepetComponent.vue';
     <ComponentOne/>
     <ComponentEight/>
     <sepetComponent/>
+    <ComponentSix/>
 </template>
